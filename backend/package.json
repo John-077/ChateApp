@@ -5,13 +5,15 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/app.js"
+    "dev": "nodemon src/app.js",
+    "start": "node src/app.js"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "bcryptjs": "^3.0.2",
+    "chat-app": "file:..",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
