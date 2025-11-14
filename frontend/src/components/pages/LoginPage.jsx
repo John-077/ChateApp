@@ -10,7 +10,7 @@ function LoginPage() {
     email: "",
     password: "",
   });
-   const { isLoggedIn, login } = useAuthStore();
+   const { isLoggingIn, login } = useAuthStore();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,13 +31,14 @@ function LoginPage() {
                   <h2 className="text-2xl font-bold text-slate-200 mb-2">
                     Welcome Back
                   </h2>
-                  <p className="text-slate-400"> Login to access to your account</p>
+                  <p className="text-slate-400">
+                    {" "}
+                    Login to access to your account
+                  </p>
                 </div>
 
                 {/* FORM */}
                 <form onSubmit={handleSubmit} className="space-y-6">
-              
-
                   {/* EMAIL INPUT */}
                   <div>
                     <label className="auth-input-label">Email</label>
@@ -78,9 +79,9 @@ function LoginPage() {
                   <button
                     className="auth-btn"
                     type="submit"
-                    disabled={isLoggedIn}
+                    disabled={isLoggingIn}
                   >
-                    {isLoggedIn ? (
+                    {isLoggingIn ? (
                       <LoaderIcon className="w-full h-5 animate-spin text-center" />
                     ) : (
                       "Sign In"
@@ -89,7 +90,7 @@ function LoginPage() {
                 </form>
                 <div className="mt-6 text-center">
                   <Link to="/signup" className="auth-link">
-                  Don't have an account? Sign Up
+                    Don't have an account? Sign Up
                   </Link>
                 </div>
               </div>
@@ -104,7 +105,7 @@ function LoginPage() {
                 />
                 <div className="mt-6 text-center">
                   <h3 className="text-xl font-medium text-cyan-400">
-               Connect anytime, anywhere
+                    Connect anytime, anywhere
                   </h3>
 
                   <div className="mt-4 flex justify-center gap-4">
