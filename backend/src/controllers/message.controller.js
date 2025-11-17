@@ -14,7 +14,7 @@ export const getAllContacts = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-export default { getAllContacts };
+
 
 export const getMessagesByUserId = async (req, res) => {
   try {
