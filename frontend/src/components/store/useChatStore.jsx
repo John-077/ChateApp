@@ -25,9 +25,8 @@ const useChatStore = create((set, get) => ({
     set({ isUsersLoading: true });
     try {
       const res = await axiosInstance.get("/messages/contacts");
-      
+
       set({ allContacts: res.data.filteredUsers });
-      console.log(res.data);
       
     } catch (error) {
       console.error(error.response?.data?.message);
@@ -41,14 +40,27 @@ const useChatStore = create((set, get) => ({
     set({ isUsersLoading: true });
     try {
       const res = await axiosInstance.get("/messages/chats");
-      // console.log(res.data.chatPartners); 
-      
+      // console.log(res.data.chatPartners);
+
       set({ chats: res.data.chatPartners });
     } catch (error) {
       console.error(error.response?.data?.message);
       toast.error(error.response?.data?.message);
     } finally {
       set({ isUsersLoading: false });
+    }
+  },
+  getMessagesByUserId: async (userId) => {
+    set({ isMessagesLoading: true });
+    try {
+      const res = await axiosInstance.get(`/messages/${userId}`);
+      set({ messages: res.data.messages });
+   
+      
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Something went wrong");
+    } finally {
+      set({ isMessagesLoading: false });
     }
   },
 }));
