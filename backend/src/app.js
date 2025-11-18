@@ -7,10 +7,10 @@ import { connectDB } from "./lib/db.js";
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
 import { ENV } from "./lib/env.js";
+import { app, server } from "./lib/socket.js";
 
 dotenv.config();
 
-const app = express();
 const port = ENV.PORT || 3000;
 const __dirname = path.resolve();
 
@@ -34,18 +34,20 @@ app.use("/api/messages", messageRoutes);
 if (ENV.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-  app.use((_, res) => {
+  app.get("*" ,(_, res) => {
     res.sendFile(
       path.resolve(__dirname, "..", "frontend", "dist", "index.html")
     );
-  });
+  }); 
 }
+
+
 const startServer = async () => {
   try {
    
     await connectDB();
 
-    app.listen(port, () => {
+    server.listen(port, () => {
       console.log(`Server is running on port ${port}`);
     });
   } catch (error) {
@@ -55,3 +57,4 @@ const startServer = async () => {
 };
 
 startServer();
+
