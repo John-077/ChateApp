@@ -1,18 +1,14 @@
 import { useState, useRef } from "react";
 import { LogOutIcon, VolumeOffIcon, Volume2Icon } from "lucide-react";
-import {useAuthStore} from "./store/useAuthStore";
-import {useChatStore} from "./store/useChatStore";
-
-
+import { useAuthStore } from "./store/useAuthStore";
+import { useChatStore } from "./store/useChatStore";
 
 function ProfileHeader() {
   const { logout, authUser, updateProfile } = useAuthStore();
   const { isSoundEnabled, toggleSound } = useChatStore();
   const [selectedImg, setSelectedImg] = useState(null);
- 
-const mouseClickSound = new Audio("/sounds/mouse-click.mp3");
 
-
+  const mouseClickSound = new Audio("/sounds/mouse-click.mp3");
 
   const fileInputRef = useRef(null);
 
@@ -21,13 +17,12 @@ const mouseClickSound = new Audio("/sounds/mouse-click.mp3");
     if (!file) return;
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onloadend = async() => {
-     const base64Image = reader.result;
-     setSelectedImg(base64Image);
+    reader.onloadend = async () => {
+      const base64Image = reader.result;
+      setSelectedImg(base64Image);
       await updateProfile({ profilePic: base64Image });
     };
-
-  }
+  };
 
   return (
     <div className="p-6 border-b border-slater-slate-700/50">
@@ -66,35 +61,35 @@ const mouseClickSound = new Audio("/sounds/mouse-click.mp3");
           </div>
         </div>
 
-          {/* BUTTONS */}
-          <div className="flex gap-4 items-center">
-            {/* LOGOUT BTN */}
-            <button
-              className="text-slate-400 hover:text-slate-200 transition-colors"
-              onClick={logout}
-            >
-              <LogOutIcon className="size-5" />
-            </button>
+        {/* BUTTONS */}
+        <div className="flex gap-4 items-center">
+          {/* LOGOUT BTN */}
+          <button
+            className="text-slate-400 hover:text-slate-200 transition-colors"
+            onClick={logout}
+          >
+            <LogOutIcon className="size-5" />
+          </button>
 
-            {/* SOUND TOGGLE BTN */}
-            <button
-              className="text-slate-400 hover:text-slate-200 transition-colors"
-              onClick={() => {
-                // play click sound before toggling
-                mouseClickSound.currentTime = 0; // reset to start
-                mouseClickSound
-                  .play()
-                  .catch((error) => console.log("Audio play failed:", error));
-                toggleSound();
-              }}
-            >
-              {isSoundEnabled ? (
-                <Volume2Icon className="size-5" />
-              ) : (
-                <VolumeOffIcon className="size-5" />
-              )}
-            </button>
-          </div>
+          {/* SOUND TOGGLE BTN */}
+          <button
+            className="text-slate-400 hover:text-slate-200 transition-colors"
+            onClick={() => {
+              // play click sound before toggling
+              mouseClickSound.currentTime = 0; // reset to start
+              mouseClickSound
+                .play()
+                .catch((error) => console.log("Audio play failed:", error));
+              toggleSound();
+            }}
+          >
+            {isSoundEnabled ? (
+              <Volume2Icon className="size-5" />
+            ) : (
+              <VolumeOffIcon className="size-5" />
+            )}
+          </button>
+        </div>
       </div>
     </div>
   );
